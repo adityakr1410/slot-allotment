@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" 
+    class="card capitalize text-xl font-semibold flex flex-col justify-between bg-white min-h-[80vh] w-[40%] p-6 rounded-3xl">
+    {% csrf_token %}
+    <h1 class="text-4xl font-bold uppercase">book appointment</h1>
+
+
+    <div class="user flex flex-row justify-between ">
+
+        <label class="mt-2 " for="">Patient's phone number:</label>
+        <input class="px-3 py-2 border-b-[#e4e4e4]  w-[70%] border-b-2 focus:outline-none" type="text"
+            placeholder="phone" id="phone" name="phone">
+    </div>
+    <div class="contact flex flex-row justify-between ">
+
+        <label class="mt-2 " for="">Reason</label>
+        <input class="px-3 w-[70%] py-2 border-b-[#e4e4e4] border-b-2 focus:outline-none" type="text"
+            name="reason" id="reason">
+
+    </div>
+    <div class="date  mt-2 flex flex-row w-[70%] justify-between items-center">
+
+        <label for="">Date of appointment: </label>
+        <input class="px-3 py-2 text-[#e4e4e4] border-b-[#e4e4e4]  w-1/2 border-b-2 focus:outline-none" type="date"
+            name="date" id="date">
+    </div>
+    <div class="category flex flex-row w-[70%] justify-between items-center">
+        <label class="mt-2" for="category">Doctor:-</label>
+        <select class="px-3 py-2 border-b-[#e4e4e4] text-[#e4e4e4]  w-1/2 border-b-2 focus:outline-none" name="doctorOption"
+            id="doctorOption">
+            {% for doc in docLst %}
+            <option class="text-xl font-medium capitalize" value="{{doc}}">{{doc}}</option>
+            {% endfor %}
+            {% comment %} <option class="text-xl font-medium capitalize" value="">orthopedition</option>
+            <option class="text-xl font-medium capitalize" value="">ENT</option>
+            <option class="text-xl font-medium capitalize" value="">urologist</option>
+            <option class="text-xl font-medium capitalize" value="">general</option> {% endcomment %}
+        </select>
+    </div>
+    {% comment %} <div class="doctor flex flex-row w-[70%] justify-between items-center">
+            <label class="mt-2" for="doctor">select doctor :-</label>
+            <select class="px-3 py-2 border-b-[#e4e4e4] text-[#e4e4e4]  w-1/2 border-b-2 focus:outline-none" name="doctors"
+                id="doctorOption">
+                <option class="text-xl font-medium capitalize" value="">Book Any</option>
+                <option class="text-xl font-medium capitalize" value="">Dr. Anikesh</option>
+                <option class="text-xl font-medium capitalize" value="">Dr. priyansu</option>
+                <option class="text-xl font-medium capitalize" value="">Dr. aditya</option>
+                <option class="text-xl font-medium capitalize" value="">Dr. kishor</option>
+                <option class="text-xl font-medium capitalize" value="">Dr. sachin</option>
+            </select>
+        </div> {% endcomment %}
+    <div class="buttons flex flex-row gap-3 self-end">
+        
+        <button
+            class="mt-6 capitalize self-end relative text-white text-lg font-semibold py-2 px-3 rounded-lg w-44 bg-[#FDA621]">
+            <a href={% url "addPatient" %}>Register</a></button>
+        
+        <button
+            class="mt-6 capitalize self-end relative text-white text-lg font-semibold py-2 px-3 rounded-lg w-44 bg-[#1F9EFD]">Book
+            Slot</button>
+    </div>
+</form>
+
+<div class="card capitalize text-xl font-semibold flex flex-col justify-between bg-white min-h-[80vh] w-[40%] p-6 rounded-3xl">
+    <div class="user flex flex-row justify-between ">
+        <label class="mt-2 " for="">Total slot's today:</label>
+        {{today}}
+    </div>
+    {% for key,value in patientCount.items %}
+        <div class="user flex flex-row justify-between ">
+            <label class="mt-2 " for="">{{key}}:</label>
+            {{value}}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
